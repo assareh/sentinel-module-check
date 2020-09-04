@@ -44,4 +44,5 @@ if length(rootModuleResources) > 0 {
 # Main rule
 validated = length(violatingMCs) is 0 and length(rootModuleResources) is 0
 main = rule {
- valida
+ validated is true
+}
