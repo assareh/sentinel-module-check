@@ -1,4 +1,4 @@
 policy "require-all-resources-from-pmr" {
     source = "./require-all-resources-from-registry.sentinel"
-    enforcement_level = "advisory"
+    enforcement_level = "hard-mandatory"
 }
