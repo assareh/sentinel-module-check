@@ -10,7 +10,7 @@ import "tfplan-functions" as plan
 import "aws-functions" as aws
 
 # List of mandatory tags
-mandatory_tags = ["Name", "ttl", "Owner"]
+mandatory_tags = ["Owner", "Environment", "Purpose"]
 
 # Get all AWS Resources with standard tags
 allAWSResourcesWithStandardTags = aws.find_resources_with_standard_tags()
