@@ -17,8 +17,6 @@ param module default "ecsfargate-service/aws"
 
 # Find instances of ecsfargate-service module
 foundMCs = filter tfconfig.module_calls as index, mc {
-  print("The module", mc.name, "has argument docker_image = ",
-       mc.config.docker_image)
   mc.module_address is "" and
   mc.source is (address + "/" + organization + "/" + module)
 }
@@ -26,6 +24,8 @@ foundMCs = filter tfconfig.module_calls as index, mc {
 # Check docker_image in those
 violatingMCs = filter foundMCs as index, mc {
   mc.config.docker_image is not "nginxdemos/hello:latest"
+  print("The module", mc.name, "has argument docker_image = ",
+       mc.config.docker_image)
 }
 
 # Print violation messages for invalid modules
