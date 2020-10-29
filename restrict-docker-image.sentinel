@@ -16,24 +16,24 @@ param organization default "hashidemos"
 param module default "ecsfargate-service/aws"
 
 # Find instances of ecsfargate-service module
-foundMCs = filter tfconfig.module_calls as index, mc {
+violatingMCs = filter tfconfig.module_calls as index, mc {
   mc.module_address is "" and
   mc.source is (address + "/" + organization + "/" + module)
 }
 
 # Check docker_image in those
-violatingMCs = filter foundMCs as index, mc {
-  mc.config.docker_image is not "nginxdemos/hello:latest"
-  print("The module", mc.name, "has argument docker_image = ",
-       mc.config.docker_image)
-}
+# violatingMCs = filter foundMCs as index, mc {
+#   mc.config.docker_image is not "nginxdemos/hello:latest"
+#   print("The module", mc.name, "has argument docker_image = ",
+#        mc.config.docker_image)
+# }
 
 # Print violation messages for invalid modules
 if length(violatingMCs) > 0 {
   print("All Docker images must come from our container registry.")
   for violatingMCs as address, mc {
     print("The module", mc.name, "has argument docker_image = ",
-          mc.config.docker_image)
+          mc.config)
   }
 }
 
