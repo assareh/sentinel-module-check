@@ -18,7 +18,7 @@ param module default "ecsfargate-service/aws"
 # Find instances of ecsfargate-service module
 violatingMCs = filter tfconfig.module_calls as index, mc {
   mc.module_address is "" and
-  strings.has_prefix(mc.source, address + "/" + organization + module)
+  mc.source is (address + "/" + organization + "/" + module)
 }
 
 # Print violation messages for invalid modules
