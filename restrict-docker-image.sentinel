@@ -33,7 +33,7 @@ if length(violatingMCs) > 0 {
   print("All Docker images must come from our container registry.")
   for violatingMCs as address, mc {
     print("The module", mc.name, "has argument docker_image = ",
-          mc.config)
+          mc.config.docker_image)
   }
 }
 
