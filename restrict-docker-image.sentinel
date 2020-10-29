@@ -1,6 +1,6 @@
 # This policy uses the tfconfig/v2 import to require that all non-root
-# modules come from the Private Module Registry and that no resources
-# or data sources are created in the root module.
+# ecsfargate-service modules provision docker images from the
+# nginxdemos repository
 
 # Import the tfconfig/v2 import, but use the alias "tfconfig"
 import "tfconfig/v2" as tfconfig
@@ -14,6 +14,8 @@ param address default "app.terraform.io"
 param organization default "hashidemos"
 # The module in question
 param module default "ecsfargate-service/aws"
+# The docker account allowed
+param repository default "nginxdemos"
 
 # Find instances of ecsfargate-service module
 foundMCs = filter tfconfig.module_calls as index, mc {
@@ -23,7 +25,7 @@ foundMCs = filter tfconfig.module_calls as index, mc {
 
 # Check docker_image in those
 violatingMCs = filter foundMCs as index, mc {
-  mc.config.docker_image.constant_value is not "nginxdemos/hello:latest"
+  not strings.has_prefix(mc.config.docker_image.constant_value, repository)
 }
 
 # Print violation messages for invalid modules
