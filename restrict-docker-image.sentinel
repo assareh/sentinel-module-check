@@ -1,0 +1,38 @@
+# This policy uses the tfconfig/v2 import to require that all non-root
+# modules come from the Private Module Registry and that no resources
+# or data sources are created in the root module.
+
+# Import the tfconfig/v2 import, but use the alias "tfconfig"
+import "tfconfig/v2" as tfconfig
+# Standard strings import
+import "strings"
+
+### Parameters ###
+# The address of the TFC or TFE server
+param address default "app.terraform.io"
+# The organization on the TFC or TFE server
+param organization default "hashidemos"
+# The module in question
+param module default "ecsfargate-service/aws"
+
+# Find instances of ecsfargate-service module
+violatingMCs = filter tfconfig.module_calls as index, mc {
+  mc.module_address is "" and
+  strings.has_prefix(mc.source, address + "/" + organization + module)
+}
+
+# Print violation messages for invalid modules
+if length(violatingMCs) > 0 {
+  print("All modules called from the root module must come from the",
+        "private module registry", address + "/" + organization)
+  for violatingMCs as address, mc {
+    print("The module", mc.name, "called from the root module has source",
+          mc.source)
+  }
+}
+
+# Main rule
+validated = length(violatingMCs) is 0
+main = rule {
+ validated is true
+}

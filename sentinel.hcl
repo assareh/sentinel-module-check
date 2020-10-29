@@ -21,6 +21,11 @@ policy "enforce-mandatory-tags" {
   enforcement_level = "soft-mandatory"
 }
 
+policy "restrict-docker-image" {
+  source = "./restrict-docker-image.sentinel"
+  enforcement_level = "soft-mandatory"
+}
+
 # common functions
 module "tfplan-functions" {
     source = "./common-functions/tfplan-functions/tfplan-functions.sentinel"
