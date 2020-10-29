@@ -22,17 +22,16 @@ foundMCs = filter tfconfig.module_calls as index, mc {
 }
 
 # Check docker_image in those
-violatingMCs = filter foundMCs as index, mc {
+violatingMCs = filter foundMCs as mc {
   mc.config.docker_image is not "nginxdemos/hello:latest"
 }
 
 # Print violation messages for invalid modules
 if length(violatingMCs) > 0 {
-  print("All modules called from the root module must come from the",
-        "private module registry", address + "/" + organization)
+  print("All Docker images must come from our container registry.")
   for violatingMCs as address, mc {
-    print("The module", mc.name, "called from the root module has source",
-          mc.source)
+    print("The module", mc.name, "has argument docker_image = ",
+          mc.config.docker_image)
   }
 }
 
