@@ -5,15 +5,15 @@ policy "require-all-resources-from-pmr" {
 }
 
 # vmware
-policy "restrict-vm-cpu-and-memory" {
-    source = "./restrict-vm-cpu-and-memory.sentinel"
-    enforcement_level = "soft-mandatory"
-}
+// policy "restrict-vm-cpu-and-memory" {
+//     source = "./restrict-vm-cpu-and-memory.sentinel"
+//     enforcement_level = "soft-mandatory"
+// }
 
-policy "restrict-vm-disk-size" {
-    source = "./restrict-vm-disk-size.sentinel"
-    enforcement_level = "soft-mandatory"
-}
+// policy "restrict-vm-disk-size" {
+//     source = "./restrict-vm-disk-size.sentinel"
+//     enforcement_level = "soft-mandatory"
+// }
 
 # esxi
 policy "esxi-restrict-vm-cpu-and-memory" {
@@ -27,15 +27,15 @@ policy "esxi-restrict-vm-disk-size" {
 }
 
 # aws
-policy "enforce-mandatory-tags" {
-  source = "./enforce-mandatory-tags.sentinel"
-  enforcement_level = "soft-mandatory"
-}
+// policy "enforce-mandatory-tags" {
+//   source = "./enforce-mandatory-tags.sentinel"
+//   enforcement_level = "soft-mandatory"
+// }
 
-policy "restrict-docker-image" {
-  source = "./restrict-docker-image.sentinel"
-  enforcement_level = "soft-mandatory"
-}
+// policy "restrict-docker-image" {
+//   source = "./restrict-docker-image.sentinel"
+//   enforcement_level = "soft-mandatory"
+// }
 
 # common functions
 module "tfplan-functions" {
