@@ -15,6 +15,17 @@ policy "restrict-vm-disk-size" {
     enforcement_level = "soft-mandatory"
 }
 
+# esxi
+policy "esxi-restrict-vm-cpu-and-memory" {
+    source = "./esxi-restrict-vm-cpu-and-memory.sentinel"
+    enforcement_level = "soft-mandatory"
+}
+
+policy "esxi-restrict-vm-disk-size" {
+    source = "./esxi-restrict-vm-disk-size.sentinel"
+    enforcement_level = "soft-mandatory"
+}
+
 # aws
 policy "enforce-mandatory-tags" {
   source = "./enforce-mandatory-tags.sentinel"
